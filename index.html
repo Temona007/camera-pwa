@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#0f172a" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <title>Photo Capture PWA</title>
+  <link rel="manifest" href="manifest.json" />
+  <link rel="icon" href="icon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- Login -->
+  <div id="loginScreen" class="screen login-screen active">
+    <div class="login-card">
+      <h1>Photo Capture</h1>
+      <form id="loginForm">
+        <div class="input-group">
+          <label>Username</label>
+          <input type="text" id="username" autocomplete="username" placeholder="user" required />
+        </div>
+        <div class="input-group">
+          <label>Password</label>
+          <input type="password" id="password" autocomplete="current-password" placeholder="user" required />
+        </div>
+        <button type="submit" class="btn btn-primary">Log in</button>
+        <p class="login-hint">Demo: user/user or admin/admin</p>
+      </form>
+    </div>
+  </div>
+
+  <!-- User: Capture + Timeline -->
+  <div id="userScreen" class="screen timeline-screen">
+    <header class="header">
+      <h1>Photo Capture</h1>
+      <button type="button" class="btn btn-secondary logout-btn" data-action="logout">Log out</button>
+    </header>
+    <main class="main">
+      <div class="tabs">
+        <button type="button" class="tab active" data-tab="capture">Capture</button>
+        <button type="button" class="tab" data-tab="timeline">Timeline</button>
+      </div>
+
+      <div id="capturePanel" class="capture-panel">
+        <div class="camera-wrap">
+          <video id="videoEl" playsinline autoplay muted></video>
+          <canvas id="canvasEl"></canvas>
+        </div>
+        <button type="button" id="captureBtn" class="capture-btn" title="Take photo"></button>
+        <div id="confirmWrap" class="confirm-wrap">
+          <img id="previewImg" class="preview-img" alt="Preview" />
+          <div class="confirm-btns">
+            <button type="button" class="btn btn-secondary" data-action="retake">Retake</button>
+            <button type="button" class="btn btn-primary" data-action="upload">Upload</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="timelinePanel" class="timeline-panel hidden">
+        <div id="timelineView" class="timeline">
+          <!-- Filled by JS -->
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Admin: All photos -->
+  <div id="adminScreen" class="screen timeline-screen">
+    <header class="header">
+      <h1>Admin – All Photos</h1>
+      <button type="button" class="btn btn-secondary logout-btn" data-action="logout">Log out</button>
+    </header>
+    <main class="main">
+      <div id="adminTimeline" class="timeline">
+        <!-- Filled by JS -->
+      </div>
+    </main>
+  </div>
+
+  <div id="toast" class="toast"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
