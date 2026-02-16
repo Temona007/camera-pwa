@@ -26,7 +26,11 @@
           <input type="password" id="password" autocomplete="current-password" placeholder="user" required />
         </div>
         <button type="submit" class="btn btn-primary">Log in</button>
-        <p class="login-hint">Demo: user/user or admin/admin</p>
+        <div class="demo-btns">
+          <button type="button" class="btn btn-demo" data-login="user">USER</button>
+          <button type="button" class="btn btn-demo" data-login="admin">ADMIN</button>
+        </div>
+        <p class="login-hint">Quick demo login</p>
       </form>
     </div>
   </div>
@@ -81,6 +85,16 @@
 
   <div id="toast" class="toast"></div>
 
+  <script>
+    document.querySelectorAll('.btn-demo[data-login]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const role = btn.dataset.login;
+        document.getElementById('username').value = role;
+        document.getElementById('password').value = role;
+        document.getElementById('loginForm').requestSubmit();
+      });
+    });
+  </script>
   <script src="app.js"></script>
 </body>
 </html>

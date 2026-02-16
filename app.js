@@ -2,13 +2,11 @@
 
 const STORAGE_KEY = 'photo-pwa-photos';
 
-// Predefined users (username: password)
 const USERS = {
   user: 'user',
   admin: 'admin',
 };
 
-// Demo data for MVP
 function getDemoPhotos() {
   return [
     {
@@ -55,10 +53,8 @@ function addPhoto(photo) {
   savePhotos(photos);
 }
 
-// App state
 let currentUser = null;
 
-// DOM
 const loginScreen = document.getElementById('loginScreen');
 const userScreen = document.getElementById('userScreen');
 const adminScreen = document.getElementById('adminScreen');
@@ -76,7 +72,6 @@ const timelineView = document.getElementById('timelineView');
 const adminTimeline = document.getElementById('adminTimeline');
 const toast = document.getElementById('toast');
 
-// Login
 loginForm.addEventListener('submit', (e) => {
   e.preventDefault();
   const username = usernameInput.value.trim();
@@ -95,7 +90,6 @@ loginForm.addEventListener('submit', (e) => {
   }
 });
 
-// Logout
 document.querySelectorAll('[data-action="logout"]').forEach((btn) => {
   btn.addEventListener('click', () => {
     stopCamera();
@@ -106,7 +100,6 @@ document.querySelectorAll('[data-action="logout"]').forEach((btn) => {
   });
 });
 
-// Screens
 function showScreen(name) {
   [loginScreen, userScreen, adminScreen].forEach((s) => s.classList.remove('active'));
   if (name === 'login') loginScreen.classList.add('active');
@@ -123,7 +116,6 @@ function showTab(name) {
   );
 }
 
-// Tabs
 document.querySelectorAll('[data-tab]').forEach((tab) => {
   tab.addEventListener('click', () => {
     const target = tab.dataset.tab;
@@ -137,7 +129,6 @@ document.querySelectorAll('[data-tab]').forEach((tab) => {
   });
 });
 
-// Camera
 let stream = null;
 
 async function startCamera() {
@@ -161,7 +152,6 @@ function stopCamera() {
   videoEl.srcObject = null;
 }
 
-// Capture
 let capturedDataUrl = null;
 
 captureBtn.addEventListener('click', () => {
@@ -182,7 +172,6 @@ captureBtn.addEventListener('click', () => {
   capturePanel.classList.add('confirming');
 });
 
-// Confirm actions
 document.querySelectorAll('[data-action]').forEach((btn) => {
   if (btn.dataset.action === 'retake') {
     btn.addEventListener('click', () => {
@@ -211,7 +200,6 @@ document.querySelectorAll('[data-action]').forEach((btn) => {
   }
 });
 
-// Timeline render
 function formatDate(ts) {
   const d = new Date(ts);
   const today = new Date();
@@ -296,15 +284,13 @@ function renderAdminTimeline() {
     .join('');
 }
 
-// Toast
 function showToast(msg) {
   toast.textContent = msg;
   toast.classList.add('show');
   setTimeout(() => toast.classList.remove('show'), 2500);
 }
 
-// PWA registration
-if ('serviceWorker' in navigator) {
+if ('serviceWorker' in navigator && location.protocol !== 'file:') {
   window.addEventListener('load', () => {
     navigator.serviceWorker.register('sw.js').catch(() => {});
   });
